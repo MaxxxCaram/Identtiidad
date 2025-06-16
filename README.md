@@ -20,8 +20,8 @@ Una aplicación web moderna para crear y editar podcasts para YouTube.
 1. Clona el repositorio:
 
 ```bash
-git clone [URL_DEL_REPOSITORIO]
-cd podcast-creator
+git clone https://github.com/MaxxxCaram/Identtiidad.git
+cd Identtiidad
 ```
 
 2. Instala las dependencias:
