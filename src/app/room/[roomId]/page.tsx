@@ -11,6 +11,7 @@ import {
   Text,
 } from "@chakra-ui/react";
 import RoomWebRTC from "./RoomWebRTC";
+import axios from "axios";
 
 export default function RoomPage() {
   const { roomId } = useParams();
@@ -21,6 +22,9 @@ export default function RoomPage() {
   );
   const [recordedChunks, setRecordedChunks] = useState<Blob[]>([]);
   const [videoUrl, setVideoUrl] = useState<string | null>(null);
+  const [uploading, setUploading] = useState(false);
+  const [uploadSuccess, setUploadSuccess] = useState(false);
+  const [uploadError, setUploadError] = useState<string | null>(null);
 
   useEffect(() => {
     // Get user media (video+audio)
@@ -52,6 +56,35 @@ export default function RoomPage() {
     mediaRecorder?.stop();
     setIsRecording(false);
   };
+
+  useEffect(() => {
+    if (videoUrl && recordedChunks.length > 0) {
+      // Subir automáticamente el archivo grabado
+      const upload = async () => {
+        setUploading(true);
+        setUploadSuccess(false);
+        setUploadError(null);
+        try {
+          const blob = new Blob(recordedChunks, { type: "video/webm" });
+          const formData = new FormData();
+          formData.append("file", blob, `recording-${roomId}.webm`);
+          await axios.post("/api/upload", blob, {
+            headers: {
+              "Content-Type": "video/webm",
+              "x-filename": `recording-${roomId}.webm`,
+            },
+          });
+          setUploadSuccess(true);
+        } catch (err: any) {
+          setUploadError(err.message || "Upload failed");
+        } finally {
+          setUploading(false);
+        }
+      };
+      upload();
+    }
+    // eslint-disable-next-line
+  }, [videoUrl]);
 
   return (
     <Container maxW="container.md" py={8}>
@@ -91,6 +124,11 @@ export default function RoomPage() {
               style={{ borderRadius: 8 }}
             />
           </Box>
+        )}
+        {uploading && <Text color="blue.500">Uploading recording...</Text>}
+        {uploadSuccess && <Text color="green.500">Upload successful!</Text>}
+        {uploadError && (
+          <Text color="red.500">Upload failed: {uploadError}</Text>
         )}
       </VStack>
     </Container>
