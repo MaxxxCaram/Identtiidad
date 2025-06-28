@@ -1,6 +1,6 @@
 # Podcast Creator
 
-Una aplicación web moderna para crear y editar podcasts para YouTube.
+Una aplicación web moderna para crear y editar podcasts para YouTube.y?
 
 ## Características
 

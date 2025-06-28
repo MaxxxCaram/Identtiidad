@@ -1,5 +1,11 @@
 # Contributor Covenant Code of Conduct
 
+## Our Mission
+
+We are committed to providing a friendly, safe and welcoming environment for all, regardless of background or identity.
+
+We invite you to help us create positive experiences for everyone.
+
 ## Our Pledge
 
 We as members, contributors, and leaders pledge to make participation in our community a harassment-free experience for everyone, regardless of age, body size, visible or invisible disability, ethnicity, sex characteristics, gender identity and expression, level of experience, education, socio-economic status, nationality, personal appearance, race, religion, or sexual identity and orientation.
